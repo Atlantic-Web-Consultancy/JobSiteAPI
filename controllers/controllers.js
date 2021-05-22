@@ -1,6 +1,6 @@
-// const Model = require('../model/model.js');
+const Model = require('../model/model.js');
 
-const User = {
+const Seeker = {
   getUser: (userId, callback) => {
     Model.getUserProfile(userId, (err, data) => {
       if (err) {
@@ -10,14 +10,19 @@ const User = {
       }
     });
   },
-  createUser: (data, callback) => {  // PARSE DATA
-    Model.createUserProfile(data, (err) => {
-      if (err) {
-        callback(err);
-      } else {
-        callback(null);
-      }
-    });
+  createSeeker: (data, callback) => {
+    if (Object.keys(data).length === 14) {
+      Model.Seeker.createSeeker(data, (err) => {
+        if (err) {
+          callback(err);
+        } else {
+          callback(null);
+        }
+      });
+    } else {
+      callback('Invalid submission');
+    }
+
   },
   updateNotes: (userId, data, callback) => { // PARSE DATA
     Model.updateNotes(userId, data, (err) => {
@@ -166,7 +171,7 @@ const Employer = {
 
 
 module.exports = {
-  User,
+  Seeker,
   Employer
 };
 

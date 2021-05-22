@@ -1,4 +1,4 @@
--- ---
+-- TVARCHAR(20)-- ---
 -- Globals
 -- ---
 
@@ -9,14 +9,14 @@
 -- Table 'Authorization--
 -- ---
 
-DROP TABLE IF EXISTS authorization;
+DROP TABLE IF EXISTS auth;
 
-CREATE TABLE authorization (
+CREATE TABLE auth (
   id SERIAL,
-  username VARCHAR(20),
-  pwhash VARCHAR(24),
-  salt VARCHAR(20),
-  type VARCHAR(10),
+  username TEXT,
+  pwhash TEXT,
+  salt TEXT,
+  type TEXT,
   PRIMARY KEY (id)
 );
 
@@ -30,7 +30,7 @@ DROP TABLE IF EXISTS session;
 CREATE TABLE session (
   id SERIAL,
   user_id INTEGER,
-  cookie VARCHAR(20),
+  cookie TEXT,
   PRIMARY KEY (id)
 );
 
@@ -43,13 +43,13 @@ DROP TABLE IF EXISTS applicants;
 
 CREATE TABLE applicants (
   id INTEGER,
-  username VARCHAR(20),
+  username TEXT,
   first_name TEXT,
   last_name TEXT,
   address1 TEXT,
   address2 TEXT NULL,
   city TEXT,
-  state VARCHAR(2),
+  state TEXT,
   country TEXT,
   zip INTEGER,
   phone TEXT,
@@ -68,7 +68,7 @@ DROP TABLE IF EXISTS employers;
 
 CREATE TABLE employers (
   id INTEGER,
-  username VARCHAR(20),
+  username TEXT,
   first_name TEXT,
   last_name TEXT,
   email TEXT,

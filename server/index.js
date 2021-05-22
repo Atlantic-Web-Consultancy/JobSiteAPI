@@ -2,11 +2,14 @@ const express = require('express');
 const app = express();
 const port = 3001;
 const parseCookies = require('../middleware/cookieParser.js');
-const { User, Employer } = require('../controllers/controllers.js');
+const { Seeker, Employer } = require('../controllers/controllers.js');
+const client = require('../database/pg.js');
 
 
 const dummyData = require('./exampleData.js');
 app.use(parseCookies);
+// app.use(express.json());
+app.use(express.urlencoded({extended: true}))
 
 app.get('/', (req, res) => {
   res.send('Hello World!');
@@ -16,13 +19,31 @@ app.listen(port, () => {
   console.log(`JobSite API listening at http://localhost:${port}`);
 });
 
-app.post('/login', (req, res) => {
-  res.status(200);
-  res.end(); //To be built out
+app.post('/createSeeker', (req, res) => {
+  Seeker.createSeeker(req.body, (err) => {
+    if (err) {
+      res.status(404);
+      res.end();
+    } else {
+      res.status(201);
+      res.end();
+    }
+  })
 });
 
+app.post('/createEmployer', (req, res) => {
+  Employer.createEmployer(req.body, (err) => {
+    if (err) {
+      res.status(404);
+      res.end();
+    } else {
+      res.status(201);
+      res.end();
+    }
+  })
+});
 
-app.post('/create', (req, res) => {
+app.post('/login', (req, res) => {
   res.status(200);
   res.end(); //To be built out
 });
