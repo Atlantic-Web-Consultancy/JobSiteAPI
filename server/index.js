@@ -1,9 +1,12 @@
 const express = require('express');
 const app = express();
 const port = 3001;
+const parseCookies = require('../middleware/cookieParser.js');
 const { User, Employer } = require('../controllers/controllers.js');
 
+
 const dummyData = require('./exampleData.js');
+app.use(parseCookies);
 
 app.get('/', (req, res) => {
   res.send('Hello World!');
