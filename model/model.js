@@ -15,7 +15,6 @@ const Seeker = {
     // insert data.username into Auth
     // salt, hash pw - insert into Autho
     // insert rest of data into applicant
-
     const salt = utils.createRandom32String();
     const hashedPassword = utils.createHash(data.password, salt);
     const authQueryString = `INSERT INTO auth (username, pwhash, salt) VALUES ($1, $2, $3) RETURNING id`;
@@ -28,7 +27,6 @@ const Seeker = {
       text: authQueryString,
       values: authValues
     }
-
     client.query(authQuery)
       .then((authData) => {
         const seekerQueryString = `INSERT INTO applicants (id, username, first_name, last_name, address1, address2, city, state, country, zip, phone, email, dob, gender) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)`;
@@ -48,7 +46,6 @@ const Seeker = {
           data.dob,
           data.gender
         ];
-
         const seekerQuery = {
           text: seekerQueryString,
           values: seekerValues
@@ -62,8 +59,6 @@ const Seeker = {
       });
   }
 }
-
-
 module.exports = {
   Seeker
 }
