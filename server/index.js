@@ -2,7 +2,9 @@ const express = require('express');
 const app = express();
 const port = 3001;
 const parseCookies = require('../middleware/cookieParser.js');
-const { Seeker, Employer } = require('../controllers/controllers.js');
+// const { Seeker, Employer } = require('../controllers/controllers.js');
+const Controller = require('../controllers/');
+
 const client = require('../database/pg.js');
 
 
@@ -20,7 +22,7 @@ app.listen(port, () => {
 });
 
 app.post('/createSeeker', (req, res) => {
-  Seeker.createSeeker(req.body, (err) => {
+  Controller.Seeker.createSeeker(req.body, (err) => {
     if (err) {
       res.status(404);
       res.end();
@@ -44,9 +46,33 @@ app.post('/createEmployer', (req, res) => {
 });
 
 app.post('/login', (req, res) => {
-  res.status(200);
-  res.end(); //To be built out
+  Controller.General.login(req.body, (err, cookie) => {
+    if (err) {
+      res.status(404);
+      res.end();
+    } else {
+      res.status(200);
+      res.cookie('jobsite', cookie);
+      res.end();
+    }
+  })
 });
+
+app.get('/logout', (req, res) => {
+  Controller.General.logout(req, (err) => {
+    if (err) {
+      res.status(404);
+      res.end();
+    } else {
+      // delete cookie from req
+      res.clearCookie('jobsite');
+      res.status(200);
+      res.end();
+    }
+  })
+});
+
+
 
 app.get('/users/:userId', (req, res) => {
   const queryString = `SELECT * FROM applicants;`

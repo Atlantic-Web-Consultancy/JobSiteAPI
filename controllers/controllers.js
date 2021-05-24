@@ -1,5 +1,6 @@
 const Model = require('../model/model.js');
 
+
 const Seeker = {
   getUser: (userId, callback) => {
     Model.getUserProfile(userId, (err, data) => {
@@ -10,20 +11,20 @@ const Seeker = {
       }
     });
   },
-  createSeeker: (data, callback) => {
-    if (Object.keys(data).length === 14) {
-      Model.Seeker.createSeeker(data, (err) => {
-        if (err) {
-          callback(err);
-        } else {
-          callback(null);
-        }
-      });
-    } else {
-      callback('Invalid submission');
-    }
+  // createSeeker: (data, callback) => {
+  //   if (Object.keys(data).length === 14) {
+  //     Model.Seeker.createSeeker(data, (err) => {
+  //       if (err) {
+  //         callback(err);
+  //       } else {
+  //         callback(null);
+  //       }
+  //     });
+  //   } else {
+  //     callback('Invalid submission');
+  //   }
 
-  },
+  // },
   updateNotes: (userId, data, callback) => { // PARSE DATA
     Model.updateNotes(userId, data, (err) => {
       if (err) {
@@ -99,14 +100,20 @@ const Employer = {
       }
     });
   },
-  createEmployer: (data, callback) => { // PARSE DATA
-    Model.createEmployerProfile(data, (err) => {
-      if (err) {
-        callback(err);
-      } else {
-        callback(null);
-      }
-    });
+  createEmployer: (data, callback) => {
+    if (Object.keys(data).length === 7) {
+      Model.Employer.createEmployer(data, (err) => {
+        if (err) {
+          console.log('callbackerr');
+          callback(err);
+        } else {
+          console.log('callbacknull')
+          callback(null);
+        }
+      });
+    } else {
+      callback('Invalid submission');
+    }
   },
   retrievePostings: (userId, callback) => {
     Model.getPostedJobs(userId, (err, data) => {
