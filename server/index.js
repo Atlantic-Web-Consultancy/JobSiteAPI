@@ -49,7 +49,17 @@ app.post('/login', (req, res) => {
 });
 
 app.get('/users/:userId', (req, res) => {
-  res.send(dummyData.userData);
+  const queryString = `SELECT * FROM applicants;`
+  client.query(queryString)
+  .then((data) => {
+    res.status(200);
+    res.send(data);
+  })
+  .catch((err) => {
+    res.status(404);
+    res.send(err);
+  })
+  // res.send(dummyData.userData);
 });
 
 app.post('/users/:userId', (req, res) => {
