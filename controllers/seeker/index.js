@@ -1,5 +1,6 @@
 const createSeeker = require('./createSeeker.js');
 
+
 const Seeker = {
   createSeeker
 }

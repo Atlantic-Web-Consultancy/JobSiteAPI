@@ -7,7 +7,7 @@ createSeeker = (data, callback) => {
   // insert rest of data into applicant
   const salt = utils.createRandom32String();
   const hashedPassword = utils.createHash(data.password, salt);
-  const authQueryString = `INSERT INTO auth (username, pwhash, salt) VALUES ($1, $2, $3) RETURNING id`;
+  const authQueryString = `INSERT INTO auth (username, pwhash, salt, type) VALUES ($1, $2, $3, 'seeker') RETURNING id`;
   const authValues = [
     data.username,
     hashedPassword,

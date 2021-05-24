@@ -34,7 +34,7 @@ app.post('/createSeeker', (req, res) => {
 });
 
 app.post('/createEmployer', (req, res) => {
-  Employer.createEmployer(req.body, (err) => {
+  Controller.Employer.createEmployer(req.body, (err) => {
     if (err) {
       res.status(404);
       res.end();

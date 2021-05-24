@@ -17,7 +17,10 @@ const login = (data, callback) => {
     const hashedPassword = utils.createHash(password, userData.salt);
     return hashedPassword === userData.password;
   })
-  .then(() => {
+  .then((match) => {
+    if (!match) {
+      throw(err)
+    }
     const randomData = utils.createRandom32String();
     const cookie = utils.createHash(randomData);
     const sessionQueryString = `INSERT INTO session (user_id, cookie) VALUES ($1, $2) RETURNING cookie`;
