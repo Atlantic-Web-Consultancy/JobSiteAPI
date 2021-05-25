@@ -72,7 +72,7 @@ app.get('/logout', (req, res) => {
 
 
 app.post('/notes', (req, res) => {
-  Controller.General.notes(req, (err) => {
+  Controller.General.createNote(req, (err) => {
     if (err) {
       res.status(404);
       res.end();
@@ -84,7 +84,7 @@ app.post('/notes', (req, res) => {
 });
 
 app.get('/notes', (req, res) => {
-  Controller.General.notes(req, (err, data) => {
+  Controller.General.getNote(req, (err, data) => {
     if (err) {
       res.status(404);
       res.end();
@@ -96,7 +96,7 @@ app.get('/notes', (req, res) => {
 });
 
 app.post('/calendar', (req, res) => {
-  Controller.General.getCalendar(req, (err) => {
+  Controller.General.createCalendar(req, (err) => {
     if (err) {
       res.status(404);
       res.end();
@@ -108,7 +108,7 @@ app.post('/calendar', (req, res) => {
 });
 
 app.get('/calendar', (req, res) => {
-  Controller.General.createCalendar(req, (err, data) => {
+  Controller.General.getCalendar(req, (err, data) => {
     if (err) {
       res.status(404);
       res.end();
