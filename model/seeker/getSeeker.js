@@ -14,7 +14,6 @@ getSeeker = (cookie, callback) => {
     if (isNaN(userId)) {
       throw('Invalid user_id, something went wrong.');
     }
-    console.log('userid', userId);
     const applicantQueryString = `SELECT * FROM applicants WHERE id = $1`;
     const applicantQueryValues = [userId];
     const applicantQuery = {
@@ -24,11 +23,9 @@ getSeeker = (cookie, callback) => {
     return client.query(applicantQuery)
   })
   .then((applicantData) => {
-    console.log('applicantdata', applicantData.rows[0]);
     callback(null, applicantData.rows[0]);
   })
   .catch((err) => {
-    console.log('err in catch block', err);
     callback(err);
   })
 };

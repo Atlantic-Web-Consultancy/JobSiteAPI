@@ -11,7 +11,7 @@ const getSeeker = (req, callback) => {
       }
     });
   } else {
-    callback('Job seeker must be logged in to /GET seeker information.');
+    callback('Job seeker must be logged in to GET seeker information.');
   }
 };
 
