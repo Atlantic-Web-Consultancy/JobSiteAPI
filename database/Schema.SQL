@@ -159,6 +159,6 @@ CREATE TABLE job_postings (
   salary INTEGER,
   type_work TEXT,
   date_posted INTEGER,
-  location TEXT,
+  location INTEGER,
   PRIMARY KEY(id)
 );
