@@ -2,7 +2,11 @@ const createEmployer = require('./createEmployer.js');
 
 
 const Employer = {
-  createEmployer
-}
+  createEmployer,
+  getEmployer,
+  changeEmployer,
+  getEmployerPostings,
+  getSeekers
+};
 
 module.exports = Employer;

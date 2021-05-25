@@ -1,8 +1,8 @@
 const Model = require('../../model/');
 
-const login = (data, callback) => {
+const getJobs = (data, callback) => {
   if (Object.keys(data).length === 2) {
-    Model.General.login(data, (err, data) => {
+    Model.General.getJobs(data, (err, data) => {
       if (err) {
         callback(err);
       } else {
@@ -10,8 +10,8 @@ const login = (data, callback) => {
       }
     });
   } else {
-    callback('Invalid credentials');
+    callback('');
   }
 };
 
-module.exports = login;
+module.exports = getJobs;

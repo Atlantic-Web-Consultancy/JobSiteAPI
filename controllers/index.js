@@ -6,6 +6,6 @@ const Controller = {
   Seeker,
   Employer,
   General
-}
+};
 
 module.exports = Controller;

@@ -6,6 +6,6 @@ const Model = {
   Seeker,
   Employer,
   General
-}
+};
 
 module.exports = Model;

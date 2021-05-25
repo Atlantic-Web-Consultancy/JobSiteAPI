@@ -1,8 +1,8 @@
 const Model = require('../../model/');
 
-const createEmployer = (data, callback) => {
+const changeEmployer = (data, callback) => {
   if (Object.keys(data).length === 7) {
-    Model.Employer.createEmployer(data, (err) => {
+    Model.Employer.changeEmployer(data, (err) => {
       if (err) {
         callback(err);
       } else {
@@ -10,8 +10,8 @@ const createEmployer = (data, callback) => {
       }
     });
   } else {
-    callback('Invalid submission');
+    callback('');
   }
 };
 
-module.exports = createEmployer;
+module.exports = changeEmployer;

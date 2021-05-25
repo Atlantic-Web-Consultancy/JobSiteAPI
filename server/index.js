@@ -2,7 +2,6 @@ const express = require('express');
 const app = express();
 const port = 3001;
 const parseCookies = require('../middleware/cookieParser.js');
-// const { Seeker, Employer } = require('../controllers/controllers.js');
 const Controller = require('../controllers/');
 
 const client = require('../database/pg.js');
@@ -10,8 +9,8 @@ const client = require('../database/pg.js');
 
 const dummyData = require('./exampleData.js');
 app.use(parseCookies);
-// app.use(express.json());
-app.use(express.urlencoded({extended: true}))
+app.use(express.json());
+app.use(express.urlencoded({extended: true}));
 
 app.get('/', (req, res) => {
   res.send('Hello World!');
@@ -30,7 +29,7 @@ app.post('/createSeeker', (req, res) => {
       res.status(201);
       res.end();
     }
-  })
+  });
 });
 
 app.post('/createEmployer', (req, res) => {
@@ -42,7 +41,7 @@ app.post('/createEmployer', (req, res) => {
       res.status(201);
       res.end();
     }
-  })
+  });
 });
 
 app.post('/login', (req, res) => {
@@ -55,7 +54,7 @@ app.post('/login', (req, res) => {
       res.cookie('jobsite', cookie);
       res.end();
     }
-  })
+  });
 });
 
 app.get('/logout', (req, res) => {
@@ -64,93 +63,179 @@ app.get('/logout', (req, res) => {
       res.status(404);
       res.end();
     } else {
-      // delete cookie from req
       res.clearCookie('jobsite');
       res.status(200);
       res.end();
     }
-  })
+  });
 });
 
 
-
-app.get('/users/:userId', (req, res) => {
-  const queryString = `SELECT * FROM applicants;`
-  client.query(queryString)
-  .then((data) => {
-    res.status(200);
-    res.send(data);
-  })
-  .catch((err) => {
-    res.status(404);
-    res.send(err);
-  })
-  // res.send(dummyData.userData);
+app.post('/notes', (req, res) => {
+  Controller.General.notes(req, (err) => {
+    if (err) {
+      res.status(404);
+      res.end();
+    } else {
+      res.status(201);
+      res.end();
+    }
+  });
 });
 
-app.post('/users/:userId', (req, res) => {
-  res.status(200);
-  res.end();
+app.get('/notes', (req, res) => {
+  Controller.General.notes(req, (err, data) => {
+    if (err) {
+      res.status(404);
+      res.end();
+    } else {
+      res.status(200);
+      res.send(data);
+    }
+  });
 });
 
-app.get('/users/:userId/notes', (req, res) => {
-  res.send(dummyData.userData['notes']);
+app.post('/calendar', (req, res) => {
+  Controller.General.getCalendar(req, (err) => {
+    if (err) {
+      res.status(404);
+      res.end();
+    } else {
+      res.status(201);
+      res.end();
+    }
+  });
 });
 
-app.post('/users/:userId/notes', (req, res) => {
-  res.status(200);
-  res.end()
+app.get('/calendar', (req, res) => {
+  Controller.General.createCalendar(req, (err, data) => {
+    if (err) {
+      res.status(404);
+      res.end();
+    } else {
+      res.status(200);
+      res.send(data);
+    }
+  });
 });
 
-app.get('/users/:userId/calendar', (req, res) => {
-  res.send(dummyData.userCalendar);
+app.get('/seekers', (req, res) => {
+  Controller.Seekers.getSeeker(req, (err, data) => {
+    if (err) {
+      res.status(404);
+      res.end();
+    } else {
+      res.status(200);
+      res.send(data);
+    }
+  });
 });
 
-app.get('/users/:userId/applications', (req, res) => {
-  res.send(dummyData.userApplications);
+app.patch('/seekers', (req, res) => {
+  Controller.Employers.changeSeeker(req, (err, data) => {
+    if (err) {
+      res.status(404);
+      res.end();
+    } else {
+      res.status(200);
+      res.send(data);
+    }
+  });
+});
+
+
+app.get('/seekers/applications', (req, res) => {
+  Controller.Seekers.getSeekerApplication(req, (err, data) => {
+    if (err) {
+      res.status(404);
+      res.end();
+    } else {
+      res.status(200);
+      res.send(data);
+    }
+  });
+});
+
+app.get('/employers', (req, res) => {
+  Controller.Employers.getEmployer(req, (err, data) => {
+    if (err) {
+      res.status(404);
+      res.end();
+    } else {
+      res.status(200);
+      res.send(data);
+    }
+  });
+});
+
+app.patch('/employers', (req, res) => {
+  Controller.Employers.changeEmployer(req, (err, data) => {
+    if (err) {
+      res.status(404);
+      res.end();
+    } else {
+      res.status(200);
+      res.send(data);
+    }
+  });
+});
+
+app.get('/employers/jobpostings', (req, res) => {
+  Controller.Employers.getEmployerPostings(req, (err, data) => {
+    if (err) {
+      res.status(404);
+      res.end();
+    } else {
+      res.status(200);
+      res.send(data);
+    }
+  });
 });
 
 app.get('/jobs', (req, res) => {
-  //Getting All Available Postings
-  res.send(dummyData.jobPostings);
-});
-
-app.post('/jobs', (req, res) => {
-  //Submitting Application
-  res.send();
-});
-
-app.get('/employers/:userId', (req, res) => {
-  res.send(dummyData.employerData);
-});
-
-app.post('/employers/:userId', (req, res) => {
-  res.send();
-});
-
-app.get('/employers/:userId/notes', (req, res) => {
-  res.send(dummyData.employerData.notes);
-});
-
-app.post('/employers/:userId/notes', (req, res) => {
-  res.status(200);
-  res.end();
-});
-
-app.get('/employers/:userId/calendar', (req, res) => {
-  res.send(dummyData.userCalendar);
-});
-
-app.get('/employers/:userId/jobpostings', (req, res) => {
-  res.send(dummyData.jobPostings);
-});
-
-app.get('/job/:jobId/applicants', (req, res) => {
-  res.send(dummyData.exampleApplicant);
+  Controller.General.getJobs(req, (err, data) => {
+    if (err) {
+      res.status(404);
+      res.end();
+    } else {
+      res.status(200);
+      res.send(data);
+    }
+  });
 });
 
 app.post('/jobs/create', (req, res) => {
-  res.status(200);
-  res.end();
+  Controller.General.createJob(req, (err) => {
+    if (err) {
+      res.status(404);
+      res.end();
+    } else {
+      res.status(200);
+      res.end();
+    }
+  });
 });
 
+app.post('/jobs/apply', (req, res) => {
+  Controller.General.applyJob(req, (err) => {
+    if (err) {
+      res.status(404);
+      res.end();
+    } else {
+      res.status(200);
+      res.end();
+    }
+  });
+});
+
+app.get('/job/:jobId/applicants', (req, res) => {
+  Controller.Employer.getSeekers(req, (err) => {
+    if (err) {
+      res.status(404);
+      res.end();
+    } else {
+      res.status(200);
+      res.end();
+    }
+  });
+});

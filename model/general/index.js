@@ -4,7 +4,14 @@ const logout = require('./logout.js');
 
 const General = {
   login,
-  logout
-}
+  logout,
+  createNote,
+  getNote,
+  createCalendar,
+  getCalendar,
+  getJobs,
+  createJob,
+  applyJob
+};
 
 module.exports = General;

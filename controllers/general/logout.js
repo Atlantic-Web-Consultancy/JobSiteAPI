@@ -12,6 +12,6 @@ const logout = (data, callback) => {
   } else {
     callback('No cookie present, cannot logout');
   }
-}
+};
 
 module.exports = logout;
