@@ -1,12 +1,12 @@
 const Model = require('../../model/');
 
 const createNote = (data, callback) => {
-  if (Object.keys(data).length === 2) {
-    Model.General.createNote(data, (err, data) => {
+  if (Object.keys(data.body).length === 2) {
+    Model.General.createNote(data, (err, res) => {
       if (err) {
         callback(err);
       } else {
-        callback(null, data);
+        callback(null, res);
       }
     });
   } else {

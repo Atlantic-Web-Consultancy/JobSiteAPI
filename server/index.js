@@ -73,6 +73,7 @@ app.get('/logout', (req, res) => {
 
 app.post('/notes', (req, res) => {
   Controller.General.createNote(req, (err) => {
+    console.log('COOOOKIE::::::',req.cookies.jobsite);
     if (err) {
       res.status(404);
       res.end();
