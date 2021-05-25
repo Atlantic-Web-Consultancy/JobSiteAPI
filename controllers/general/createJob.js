@@ -1,16 +1,20 @@
 const Model = require('../../model/');
 
-const createJob = (data, callback) => {
-  if (Object.keys(data).length === 2) {
-    Model.General.createJob(data, (err, data) => {
-      if (err) {
-        callback(err);
-      } else {
-        callback(null, data);
-      }
-    });
+const createJob = (req, callback) => {
+  if (Object.keys(req.body).length === 8) {
+    if (req.cookies.jobsite) {
+      Model.General.createJob(req.body, req.cookies.jobsite, (err, data) => {
+        if (err) {
+          callback(err);
+        } else {
+          callback(null, data);
+        }
+      });
+    } else {
+      callback('No cookie presnet');
+    }
   } else {
-    callback('');
+    callback('Could not create Job, some fields are missing');
   }
 };
 
