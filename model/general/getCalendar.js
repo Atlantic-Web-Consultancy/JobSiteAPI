@@ -19,7 +19,7 @@ const getCalendar = (data, callback) => {
       return client.query(getCalQuery);
     })
     .then((cal) => {
-      callback(cal.rows);
+      callback(null, cal.rows);
     })
     .catch((err) => {
       callback(err);
