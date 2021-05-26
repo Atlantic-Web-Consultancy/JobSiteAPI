@@ -8,7 +8,7 @@ const createNote = (data, callback) => {
     const userIdQuery = {
       text: userIdQueryStr,
       values: cookie,
-    }
+    };
     client.query(userIdQuery)
       .then((sessionData) => {
         const addNoteQueryStr = 'INSERT INTO notes(user_id, job_id, content) VALUES ($1, $2, $3)';
@@ -16,7 +16,7 @@ const createNote = (data, callback) => {
           sessionData.rows[0].user_id,
           data.body.job_id,
           data.body.content
-        ]
+        ];
         const addNoteQuery = {
           text: addNoteQueryStr,
           values: addNoteValues

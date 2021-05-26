@@ -15,11 +15,11 @@ const getNote = (data, callback) => {
       const getNoteQuery = {
         text: getNoteQueryStr,
         values: id,
-      }
+      };
       return client.query(getNoteQuery);
     })
     .then((notes) => {
-      callback(notes.rows)
+      callback(notes.rows);
     })
     .catch((err) => {
       callback(err);
