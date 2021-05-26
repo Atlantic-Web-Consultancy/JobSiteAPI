@@ -27,7 +27,6 @@ const createCalendar = (data, callback) => {
       })
       .then(callback(null))
       .catch((err) => {
-        console.log(err);
         callback(err);
       });
   } else {
