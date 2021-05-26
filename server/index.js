@@ -157,10 +157,10 @@ app.get('/seekers/applications', (req, res) => {
 });
 
 app.get('/employers', (req, res) => {
-  Controller.Employers.getEmployer(req, (err, data) => {
+  Controller.Employer.getEmployer(req, (err, data) => {
     if (err) {
       res.status(404);
-      res.end();
+      res.send(err);
     } else {
       res.status(200);
       res.send(data);
