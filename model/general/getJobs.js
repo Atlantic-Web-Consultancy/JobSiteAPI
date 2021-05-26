@@ -5,9 +5,14 @@ const getJobs = (params, callback) => {
   let queryValues = [];
   let paramStrings = [];
   let varCounter = 0;
-  if (params.employmentType) {
+  if (params.employmentTitle) {
     varCounter += 1;
     paramStrings.push(`title LIKE $${varCounter}`);
+    queryValues.push(params.employmentTitle);
+  }
+  if (params.employmentType) {
+    varCounter += 1;
+    paramStrings.push(`employment_type=$${varCounter}`);
     queryValues.push(params.employmentType);
   }
   if (params.experienceLevel) {
