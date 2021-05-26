@@ -1,16 +1,13 @@
 const Model = require('../../model/');
 
-const getCalendar = (data, callback) => {
-  if (Object.keys(data).length === 2) {
-    Model.General.getCalendar(data, (err, data) => {
-      if (err) {
-        callback(err);
-      } else {
-        callback(null, data);
-      }
+const getCalendar = (req, callback) => {
+  const cookie = req.cookies.jobsite;
+  if (cookie) {
+    Model.General.getCalendar(req, (data) => {
+      callback(null, data);
     });
   } else {
-    callback('');
+    callback('Error: Fields Missing or Data is Invalid');
   }
 };
 
