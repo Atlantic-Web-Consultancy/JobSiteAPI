@@ -31,7 +31,12 @@ const getJobs = (params, callback) => {
     queryValues.push(params.remote);
   }
   allParams = paramStrings.join(' and ');
-  const queryString = `SELECT * FROM job_postings WHERE ${allParams}`;
+  var queryString = '';
+  if (allParams === '') {
+    queryString = 'SELECT * FROM job_postings';
+  } else {
+    queryString = `SELECT * FROM job_postings WHERE ${allParams}`;
+  }
   client.query({
     text: queryString,
     values: queryValues
