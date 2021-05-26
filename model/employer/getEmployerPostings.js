@@ -3,7 +3,7 @@ const utils = require('../../lib/hashUtils.js');
 
 getEmployerPostings = (cookie, callback) => {
 
-  const sessionQueryString = `SELECT user_id FROM session WHERE cookie = $1`;
+  const sessionQueryString = 'SELECT user_id FROM session WHERE cookie = $1';
   const sessionQueryValues = [cookie];
   const sessionQuery = {
     text: sessionQueryString,
@@ -15,7 +15,7 @@ getEmployerPostings = (cookie, callback) => {
     if (isNaN(userId)) {
       throw('Invalid user_id, something went wrong.');
     }
-    const postingsQueryString = `SELECT * FROM job_postings WHERE employer_id = $1`;
+    const postingsQueryString = 'SELECT * FROM job_postings WHERE employer_id = $1';
     const postingsQueryValues = [userId];
     const postingsQuery = {
       text: postingsQueryString,
