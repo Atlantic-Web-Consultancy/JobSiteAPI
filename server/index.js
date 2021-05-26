@@ -145,10 +145,10 @@ app.patch('/seekers', (req, res) => {
 
 
 app.get('/seekers/applications', (req, res) => {
-  Controller.Seekers.getSeekerApplication(req, (err, data) => {
+  Controller.Seeker.getSeekerApplication(req, (err, data) => {
     if (err) {
       res.status(404);
-      res.end();
+      res.end(err);
     } else {
       res.status(200);
       res.send(data);
