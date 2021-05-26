@@ -7,23 +7,23 @@ const getCalendar = (data, callback) => {
   const userIdQuery = {
     text: userIdQueryStr,
     values: cookie,
-  }
+  };
   client.query(userIdQuery)
-  .then((sessionData) => {
-    const getCalQueryStr = 'SELECT * FROM calendar_events WHERE user_id=($1)';
-    const userId = [ sessionData.rows[0].user_id ];
-    const getCalQuery = {
-      text: getCalQueryStr,
-      values: userId,
-    }
-    return client.query(getCalQuery);
-  })
-  .then((cal) => {
-    callback(cal.rows)
-  })
-  .catch((err) => {
-    callback(err);
-  });
+    .then((sessionData) => {
+      const getCalQueryStr = 'SELECT * FROM calendar_events WHERE user_id=($1)';
+      const userId = [ sessionData.rows[0].user_id ];
+      const getCalQuery = {
+        text: getCalQueryStr,
+        values: userId,
+      };
+      return client.query(getCalQuery);
+    })
+    .then((cal) => {
+      callback(cal.rows);
+    })
+    .catch((err) => {
+      callback(err);
+    });
 };
 
 module.exports = getCalendar;
