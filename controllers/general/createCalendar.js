@@ -10,7 +10,7 @@ const createCalendar = (data, callback) => {
       }
     });
   } else {
-    callback('');
+    callback('Error: Fields Missing or Data is Invalid');
   }
 };
 

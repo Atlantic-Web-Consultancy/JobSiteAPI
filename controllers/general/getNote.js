@@ -1,12 +1,13 @@
 const Model = require('../../model/');
 
 const getNote = (req, callback) => {
-  if (req.cookies) {
+  const cookie = req.cookies.jobsite;
+  if (cookie) {
     Model.General.getNote(req, (data) => {
         callback(null, data);
     });
   } else {
-    callback('');
+    callback('Error: Fields Missing or Data is Invalid');
   }
 };
 
