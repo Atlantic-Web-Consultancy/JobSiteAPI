@@ -251,3 +251,15 @@ app.post('/documents', upload.single('document'), (req, res) => {
     }
   });
 });
+
+app.get('/documents', (req, res) => {
+  Controller.General.getDocument(req, (err, data) => {
+    if (err) {
+      res.status(404);
+      res.send(err);
+    } else {
+      res.status(200);
+      res.download(`${__dirname}/../documents/${data.document_hash}`, data.document_name);
+    }
+  });
+});

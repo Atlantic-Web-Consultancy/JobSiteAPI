@@ -8,7 +8,7 @@ const getJobs = require('./getJobs.js');
 const createJob = require('./createJob.js');
 const applyJob = require('./applyJob.js');
 const createDocument = require('./createDocument.js');
-
+const getDocument = require('./getDocument.js');
 
 const General = {
   login,
@@ -20,7 +20,8 @@ const General = {
   getJobs,
   createJob,
   applyJob,
-  createDocument
+  createDocument,
+  getDocument
 };
 
 module.exports = General;
