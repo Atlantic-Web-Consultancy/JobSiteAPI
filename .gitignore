@@ -4,3 +4,4 @@ passwords.js
 database/pg.js
 **/.DS_Store
 .DS_store
+documents/
