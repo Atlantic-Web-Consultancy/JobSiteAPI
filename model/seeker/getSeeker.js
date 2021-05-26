@@ -2,7 +2,7 @@ const client = require('../../database/pg.js');
 const utils = require('../../lib/hashUtils.js');
 
 getSeeker = (cookie, callback) => {
-  const sessionQueryString = `SELECT user_id FROM session WHERE cookie = $1`;
+  const sessionQueryString = 'SELECT user_id FROM session WHERE cookie = $1';
   const sessionQueryValues = [cookie];
   const sessionQuery = {
     text: sessionQueryString,
@@ -14,7 +14,7 @@ getSeeker = (cookie, callback) => {
     if (isNaN(userId)) {
       throw('Invalid user_id, something went wrong.');
     }
-    const applicantQueryString = `SELECT * FROM applicants WHERE id = $1`;
+    const applicantQueryString = 'SELECT * FROM applicants WHERE id = $1';
     const applicantQueryValues = [userId];
     const applicantQuery = {
       text: applicantQueryString,
