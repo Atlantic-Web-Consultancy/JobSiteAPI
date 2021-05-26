@@ -1,17 +1,7 @@
-const Model = require('../../model/');
+const client = require('../../database/pg.js');
+const utils = require('../../lib/hashUtils.js');
 
-const getSeekers = (data, callback) => {
-  if (Object.keys(data).length === 7) {
-    Model.Employer.getSeekers(data, (err) => {
-      if (err) {
-        callback(err);
-      } else {
-        callback(null);
-      }
-    });
-  } else {
-    callback('');
-  }
+getSeekers = (data, callback) => {
 };
 
 module.exports = getSeekers;

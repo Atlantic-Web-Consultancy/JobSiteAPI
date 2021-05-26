@@ -181,10 +181,10 @@ app.patch('/employers', (req, res) => {
 });
 
 app.get('/employers/jobpostings', (req, res) => {
-  Controller.Employers.getEmployerPostings(req, (err, data) => {
+  Controller.Employer.getEmployerPostings(req, (err, data) => {
     if (err) {
       res.status(404);
-      res.end();
+      res.end(err);
     } else {
       res.status(200);
       res.send(data);
