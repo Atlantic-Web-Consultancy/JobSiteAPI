@@ -120,10 +120,10 @@ app.get('/calendar', (req, res) => {
 });
 
 app.get('/seekers', (req, res) => {
-  Controller.Seekers.getSeeker(req, (err, data) => {
+  Controller.Seeker.getSeeker(req, (err, data) => {
     if (err) {
       res.status(404);
-      res.end();
+      res.send(err);
     } else {
       res.status(200);
       res.send(data);

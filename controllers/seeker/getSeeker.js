@@ -1,16 +1,17 @@
 const Model = require('../../model/');
 
-const getSeeker = (data, callback) => {
-  if (Object.keys(data).length === 14) {
-    Model.Seeker.getSeeker(data, (err) => {
+const getSeeker = (req, callback) => {
+  var jobSiteCookie = req.cookies.jobsite;
+  if (jobSiteCookie) {
+    Model.Seeker.getSeeker(jobSiteCookie, (err, data) => {
       if (err) {
         callback(err);
       } else {
-        callback(null);
+        callback(null, data);
       }
     });
   } else {
-    callback('');
+    callback('Job seeker must be logged in to GET seeker information.');
   }
 };
 
