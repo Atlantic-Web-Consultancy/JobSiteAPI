@@ -7,10 +7,9 @@ const getJobs = (req, callback) => {
   //
   // ZIP CODE API???
   //
-  const zipCodes = [];
   // zipcodes.push - zipcodes within specified distance?
 
-  Model.General.getJobs(req.query, zipCodes, (err, data) => {
+  Model.General.getJobs(req.query, (err, data) => {
     if (err) {
       callback(err);
     } else {
