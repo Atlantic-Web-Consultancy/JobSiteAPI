@@ -5,3 +5,4 @@ database/pg.js
 **/.DS_Store
 .DS_store
 documents/
+.DS_Store
