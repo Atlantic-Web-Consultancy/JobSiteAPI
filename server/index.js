@@ -228,6 +228,18 @@ app.post('/jobs/apply', (req, res) => {
   });
 });
 
+app.patch('/jobs/apply', (req, res) => {
+  Controller.General.applyJob(req, (err) => {
+    if (err) {
+      res.status(404);
+      res.send(err);
+    } else {
+      res.status(201);
+      res.end();
+    }
+  });
+});
+
 app.get('/job/:jobId/applicants', (req, res) => {
   Controller.Employer.getSeekers(req, (err) => {
     if (err) {

@@ -1,6 +1,6 @@
 const Model = require('../../model/');
 
-const applyJob = (req, callback) => {
+const updateApplication = (req, callback) => {
   var data = req.body;
   if (req.cookies.jobsite) {
     // this is contingent on the resume/coverletter being NULL if they aren't updated yet.
@@ -20,4 +20,4 @@ const applyJob = (req, callback) => {
   }
 };
 
-module.exports = applyJob;
+module.exports = updateApplication;
