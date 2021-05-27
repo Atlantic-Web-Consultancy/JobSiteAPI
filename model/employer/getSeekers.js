@@ -1,18 +1,18 @@
 const client = require('../../database/pg.js');
 const utils = require('../../lib/hashUtils.js');
 
-getSeekers = (cookie, jobId, callback) => {
-  authenticateSeekers(cookie, jobId, (err, data) => {
+getSeekers = (cookie, jobId, queryParams, callback) => {
+  authenticateSeekers(cookie, jobId, queryParams, (err, data) => {
     if (err) {
       callback(err);
     } else {
-      callback(null, data)
+      callback(null, data);
     }
   });
 };
 
 
-const authenticateSeekers = (cookie, jobId, callback) => {
+const authenticateSeekers = (cookie, jobId, queryParams, callback) => {
   const sessionQueryString = 'SELECT user_id FROM session WHERE cookie = $1';
   const sessionQueryValues = [cookie];
   const sessionQuery = {
@@ -31,7 +31,7 @@ const authenticateSeekers = (cookie, jobId, callback) => {
     .then((jobData) => {
       if (jobData.rows[0].id === parseInt(jobId)) {
         callback(null, 'Yay');
-        // fetchSeekers(cookie, jobId, callback);
+        // fetchSeekers(cookie, jobId, queryParams, callback);
       } else {
         callback('Error: This user is not authenticated to view applicants for this job posting.');
       }

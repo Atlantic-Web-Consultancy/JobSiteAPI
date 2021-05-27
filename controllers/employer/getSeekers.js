@@ -3,7 +3,7 @@ const Model = require('../../model/');
 getSeekers = (req, callback) => {
   var jobSiteCookie = req.cookies.jobsite;
   if (jobSiteCookie) {
-    Model.Employer.getSeekers(jobSiteCookie, req.params.jobId, (err, data) => {
+    Model.Employer.getSeekers(jobSiteCookie, req.params.jobId, req.query, (err, data) => {
       if (err) {
         callback(err);
       } else {
