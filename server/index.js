@@ -7,9 +7,9 @@ const multer = require('multer');
 const upload = multer({ dest: 'documents/' });
 
 const client = require('../database/pg.js');
+var cors = require('cors');
+app.use(cors());
 
-
-const dummyData = require('./exampleData.js');
 app.use(parseCookies);
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
