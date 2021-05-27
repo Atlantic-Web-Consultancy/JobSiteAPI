@@ -54,13 +54,14 @@ const getJobs = (params, ip, callback) => {
       }
       )
       .then((zipData) => {
-        var zipParams = [];
+        const zipParams = [];
         for (var i = 0; i < zipData.data.zip_codes.length; i++) {
           varCounter += 1;
-          zipParams.push(`location=$${varCounter}`);
+          zipParams.push(`$${varCounter}`);
           queryValues.push(zipData.data.zip_codes[i].zip_code);
         }
-        var zipString = zipParams.join(' OR ');
+        const zipJoined = zipParams.join(', ');
+        var zipString = `location IN (${zipJoined})`;
         paramStrings.push(zipString);
         executeQuery(paramStrings, queryValues, callback);
       });
