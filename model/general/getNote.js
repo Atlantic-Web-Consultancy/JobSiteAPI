@@ -19,7 +19,7 @@ const getNote = (data, callback) => {
       return client.query(getNoteQuery);
     })
     .then((notes) => {
-      callback(notes.rows);
+      callback(null, notes.rows);
     })
     .catch((err) => {
       callback(err);
