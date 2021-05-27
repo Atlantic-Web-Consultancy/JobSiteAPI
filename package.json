@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/Atlantic-Web-Consultancy/JobSiteAPI#readme",
   "dependencies": {
+    "axios": "^0.21.1",
     "eslint": "^7.27.0",
     "express": "^4.17.1",
     "mammoth": "^1.4.17",
