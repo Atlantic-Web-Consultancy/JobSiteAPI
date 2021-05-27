@@ -3,6 +3,8 @@ const app = express();
 const port = 3001;
 const parseCookies = require('../middleware/cookieParser.js');
 const Controller = require('../controllers/');
+const multer = require('multer');
+const upload = multer({ dest: 'documents/' });
 
 const client = require('../database/pg.js');
 
@@ -69,7 +71,6 @@ app.get('/logout', (req, res) => {
     }
   });
 });
-
 
 app.post('/notes', (req, res) => {
   Controller.General.createNote(req, (err) => {
@@ -142,7 +143,6 @@ app.patch('/seekers', (req, res) => {
     }
   });
 });
-
 
 app.get('/seekers/applications', (req, res) => {
   Controller.Seeker.getSeekerApplication(req, (err, data) => {
@@ -236,6 +236,30 @@ app.get('/job/:jobId/applicants', (req, res) => {
     } else {
       res.status(200);
       res.end();
+    }
+  });
+});
+
+app.post('/documents', upload.single('document'), (req, res) => {
+  Controller.General.createDocument(req, (err, data) => {
+    if (err) {
+      res.status(404);
+      res.send(err);
+    } else {
+      res.status(201);
+      res.send(data.toString());
+    }
+  });
+});
+
+app.get('/documents', (req, res) => {
+  Controller.General.getDocument(req, (err, data) => {
+    if (err) {
+      res.status(404);
+      res.send(err);
+    } else {
+      res.status(200);
+      res.download(`${__dirname}/../documents/${data.document_hash}`, data.document_name);
     }
   });
 });

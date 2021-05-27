@@ -124,6 +124,7 @@ CREATE TABLE documents (
   id SERIAL,
   document_name TEXT,
   document_hash TEXT,
+  text TEXT,
   PRIMARY KEY(id)
 );
 
