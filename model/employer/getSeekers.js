@@ -38,7 +38,7 @@ const authenticateSeekers = (cookie, jobId, queryParams, callback) => {
 };
 
 const fetchSeekers = (jobId, queryParams, callback) => {
-  const applicantQueryString = 'SELECT * FROM applications where job_id = $1';
+  let applicantQueryString = 'SELECT applications.applicant_id, applications.resume, applications.cover, applications.submission_date, documents.text, applicants.first_name, applicants.last_name, applicants.phone, applicants.email, applicants.dob, applicants.gender FROM applications applications INNER JOIN documents documents ON documents.id = applications.resume INNER JOIN applicants applicants ON applicants.id = applications.applicant_id WHERE job_id = $1';
   const applicantValues = [jobId];
   const applicantQuery = {
     text: applicantQueryString,
@@ -46,11 +46,26 @@ const fetchSeekers = (jobId, queryParams, callback) => {
   };
   client.query(applicantQuery)
     .then((data) => {
-      callback(null, data.rows);
+      if (queryParams.filter) {
+        filterData(data.rows, queryParams.filter, callback);
+      } else {
+        const cleanedData = parseData(data.rows);
+        callback(null, cleanedData);
+      }
     })
     .catch((err) => {
       callback(err);
     });
+};
+
+const filterData = (applications, filter, callback) => {
+  const filteredApplications = [];
+  for (let i = 0; i < applications.length; i++) {
+    if (applications[i].text.toLowerCase().includes(filter.toLowerCase())) {
+      filteredApplications.push(applications[i]);
+    }
+  }
+  callback(null, filteredApplications);
 };
 
 module.exports = getSeekers;
