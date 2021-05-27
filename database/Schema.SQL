@@ -162,3 +162,20 @@ CREATE TABLE job_postings (
   location INTEGER,
   PRIMARY KEY(id)
 );
+
+-- ---
+-- Table 'blog'
+--
+-- ---
+
+DROP TABLE IF EXISTS blog;
+
+CREATE TABLE blog (
+  id SERIAL,
+  first_name TEXT,
+  last_name TEXT,
+  date_posted BIGINT,
+  title TEXT,
+  content TEXT,
+  PRIMARY KEY (id)
+);
