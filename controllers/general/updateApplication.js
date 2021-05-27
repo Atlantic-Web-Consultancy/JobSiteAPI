@@ -1,11 +1,11 @@
 const Model = require('../../model/');
 
-const applyJob = (req, callback) => {
+const updateApplication = (req, callback) => {
   var data = req.body;
   if (req.cookies.jobsite) {
     // this is contingent on the resume/coverletter being NULL if they aren't updated yet.
     if (Object.keys(data).length === 6) {
-      Model.General.applyJob(data, req.cookies.jobsite, (err, data) => {
+      Model.General.updateApplication(data, req.cookies.jobsite, (err, data) => {
         if (err) {
           callback(err);
         } else {
@@ -20,4 +20,4 @@ const applyJob = (req, callback) => {
   }
 };
 
-module.exports = applyJob;
+module.exports = updateApplication;

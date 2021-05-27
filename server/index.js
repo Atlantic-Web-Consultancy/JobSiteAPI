@@ -220,9 +220,21 @@ app.post('/jobs/apply', (req, res) => {
   Controller.General.applyJob(req, (err) => {
     if (err) {
       res.status(404);
-      res.end();
+      res.send(err);
     } else {
-      res.status(200);
+      res.status(201);
+      res.end();
+    }
+  });
+});
+
+app.patch('/jobs/apply', (req, res) => {
+  Controller.General.updateApplication(req, (err) => {
+    if (err) {
+      res.status(404);
+      res.send(err);
+    } else {
+      res.status(201);
       res.end();
     }
   });
