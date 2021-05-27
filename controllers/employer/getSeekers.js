@@ -1,7 +1,18 @@
-const client = require('../../database/pg.js');
-const utils = require('../../lib/hashUtils.js');
+const Model = require('../../model/');
 
-getSeekers = (data, callback) => {
+getSeekers = (req, callback) => {
+  var jobSiteCookie = req.cookies.jobsite;
+  if (jobSiteCookie) {
+    Model.Employer.getSeekers(jobSiteCookie, req.params.jobId, (err, data) => {
+      if (err) {
+        callback(err);
+      } else {
+        callback(null, data);
+      }
+    });
+  } else {
+    callback('Employer must be logged in to GET applicants for a job posting.');
+  }
 };
 
 module.exports = getSeekers;
