@@ -1,7 +1,8 @@
 const client = require('../../database/pg.js');
 const utils = require('../../lib/hashUtils.js');
+const axios = require('axios');
 
-const getJobs = (params, callback) => {
+const getJobs = (params, ip, callback) => {
   let queryValues = [];
   let paramStrings = [];
   let varCounter = 0;
@@ -36,6 +37,35 @@ const getJobs = (params, callback) => {
     paramStrings.push(`type_work=$${varCounter}`);
     queryValues.push(params.remote);
   }
+  if (params.distance) {
+    const ipAddress = ip.split(':')[3];
+    const requestLocateURL = `http://api.ipstack.com/${ipAddress}?access_key=33829db1c458b764a5006e3ee05e2339&format=1`;
+    axios.get(requestLocateURL)
+      .then((location) => {
+        const zip = location.data.zip;
+        const zipRequestURL = `https://www.zipcodeapi.com/rest/DemoOnly00Ohu1ugJZtit01nhbeqkRCnxBgW31AWWDqeEXtpZM2pPFMxwczr7QLz/radius.json/${zip}/${params.distance}/mile`;
+        return axios.get(zipRequestURL);
+      }
+      )
+      .then((zipData) => {
+        var zipParams = [];
+        for (var i = 0; i < zipData.data.zip_codes.length; i++) {
+          varCounter += 1;
+          zipParams.push(`location=$${varCounter}`);
+          queryValues.push(zipData.data.zip_codes[i].zip_code);
+        }
+        var zipString = zipParams.join(' OR ');
+        paramStrings.push(zipString);
+        executeQuery(paramStrings, queryValues, callback);
+      });
+
+  } else {
+    executeQuery(paramStrings, queryValues, callback);
+  }
+
+};
+
+const executeQuery = (paramStrings, queryValues, callback) => {
   allParams = paramStrings.join(' and ');
   var queryString = '';
   if (allParams === '') {

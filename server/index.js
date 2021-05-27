@@ -208,7 +208,7 @@ app.post('/jobs/create', (req, res) => {
   Controller.General.createJob(req, (err) => {
     if (err) {
       res.status(404);
-      res.end();
+      res.send(err);
     } else {
       res.status(200);
       res.end();
