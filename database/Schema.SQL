@@ -159,7 +159,7 @@ CREATE TABLE job_postings (
   experience_level TEXT,
   salary INTEGER,
   type_work TEXT,
-  date_posted INTEGER,
+  date_posted BIGINT,
   location INTEGER,
   PRIMARY KEY(id)
 );

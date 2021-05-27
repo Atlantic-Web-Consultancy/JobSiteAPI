@@ -1,7 +1,7 @@
 const Model = require('../../model/');
 
 const createJob = (req, callback) => {
-  if (Object.keys(req.body).length === 8) {
+  if (Object.keys(req.body).length === 7) {
     if (req.cookies.jobsite) {
       Model.General.createJob(req.body, req.cookies.jobsite, (err, data) => {
         if (err) {
@@ -11,7 +11,7 @@ const createJob = (req, callback) => {
         }
       });
     } else {
-      callback('No cookie presnet');
+      callback('No cookie present');
     }
   } else {
     callback('Could not create Job, some fields are missing');

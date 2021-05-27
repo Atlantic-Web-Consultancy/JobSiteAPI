@@ -37,6 +37,12 @@ const getJobs = (params, ip, callback) => {
     paramStrings.push(`type_work=$${varCounter}`);
     queryValues.push(params.remote);
   }
+  if (params.date) {
+    varCounter += 1;
+    const date = Date.now() - params.date * 86400000;
+    paramStrings.push(`date_posted > $${varCounter}`);
+    queryValues.push(date);
+  }
   if (params.distance) {
     const ipAddress = ip.split(':')[3];
     const requestLocateURL = `http://api.ipstack.com/${ipAddress}?access_key=33829db1c458b764a5006e3ee05e2339&format=1`;
@@ -69,9 +75,9 @@ const executeQuery = (paramStrings, queryValues, callback) => {
   allParams = paramStrings.join(' and ');
   var queryString = '';
   if (allParams === '') {
-    queryString = 'SELECT * FROM job_postings';
+    queryString = 'SELECT * FROM job_postings ORDER BY date_posted DESC';
   } else {
-    queryString = `SELECT * FROM job_postings WHERE ${allParams}`;
+    queryString = `SELECT * FROM job_postings WHERE ${allParams} ORDER BY date_posted DESC`;
   }
   client.query({
     text: queryString,
