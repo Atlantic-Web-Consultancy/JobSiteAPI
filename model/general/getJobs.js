@@ -8,7 +8,8 @@ const getJobs = (params, callback) => {
   if (params.employmentTitle) {
     varCounter += 1;
     paramStrings.push(`title LIKE $${varCounter}`);
-    queryValues.push(params.employmentTitle);
+    const employmentTitle = params.employmentTitle.replace(' ', '%');
+    queryValues.push(`%${employmentTitle}%`);
   }
   if (params.employmentType) {
     varCounter += 1;
