@@ -36,12 +36,18 @@ const getJobs = (params, callback) => {
     paramStrings.push(`type_work=$${varCounter}`);
     queryValues.push(params.remote);
   }
+  if (params.date) {
+    varCounter += 1;
+    const date = Date.now() - params.date * 86400000;
+    paramStrings.push(`date_posted > $${varCounter}`);
+    queryValues.push(date);
+  }
   allParams = paramStrings.join(' and ');
   var queryString = '';
   if (allParams === '') {
-    queryString = 'SELECT * FROM job_postings';
+    queryString = 'SELECT * FROM job_postings ORDER BY date_posted DESC';
   } else {
-    queryString = `SELECT * FROM job_postings WHERE ${allParams}`;
+    queryString = `SELECT * FROM job_postings WHERE ${allParams} ORDER BY date_posted DESC`;
   }
   client.query({
     text: queryString,
