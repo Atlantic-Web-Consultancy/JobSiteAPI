@@ -1,6 +1,5 @@
 const client = require('../../database/pg.js');
 const utils = require('../../lib/hashUtils.js');
-const moment = require('moment');
 
 const createJob = (body, cookie, callback) => {
   const sessionQuery = {
@@ -12,7 +11,7 @@ const createJob = (body, cookie, callback) => {
       const userId = sessionQueryData.rows[0].user_id;
       const jobPostingQuery = {
         text: 'INSERT INTO job_postings (title, description, employment_type, experience_level, salary, type_work, date_posted, location) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)',
-        values: [body.title, body.description, body.employment_type, body.experience_level, body.salary, body.type_work, parseInt(moment().format('x')), body.location]
+        values: [body.title, body.description, body.employment_type, body.experience_level, body.salary, body.type_work, Date.now(), body.location]
       };
       return client.query(jobPostingQuery);
     })
