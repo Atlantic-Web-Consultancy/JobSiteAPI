@@ -229,13 +229,13 @@ app.post('/jobs/apply', (req, res) => {
 });
 
 app.get('/job/:jobId/applicants', (req, res) => {
-  Controller.Employer.getSeekers(req, (err) => {
+  Controller.Employer.getSeekers(req, (err, data) => {
     if (err) {
       res.status(404);
-      res.end();
+      res.send(err);
     } else {
       res.status(200);
-      res.end();
+      res.send(data);
     }
   });
 });
