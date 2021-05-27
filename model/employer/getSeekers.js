@@ -30,11 +30,27 @@ const authenticateSeekers = (cookie, jobId, queryParams, callback) => {
     })
     .then((jobData) => {
       if (jobData.rows[0].id === parseInt(jobId)) {
-        callback(null, 'Yay');
-        // fetchSeekers(cookie, jobId, queryParams, callback);
+        fetchSeekers(jobId, queryParams, callback);
       } else {
         callback('Error: This user is not authenticated to view applicants for this job posting.');
       }
     });
 };
+
+const fetchSeekers = (jobId, queryParams, callback) => {
+  const applicantQueryString = 'SELECT * FROM applications where job_id = $1';
+  const applicantValues = [jobId];
+  const applicantQuery = {
+    text: applicantQueryString,
+    values: applicantValues
+  };
+  client.query(applicantQuery)
+    .then((data) => {
+      callback(null, data.rows);
+    })
+    .catch((err) => {
+      callback(err);
+    });
+};
+
 module.exports = getSeekers;
