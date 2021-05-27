@@ -229,7 +229,7 @@ app.post('/jobs/apply', (req, res) => {
 });
 
 app.patch('/jobs/apply', (req, res) => {
-  Controller.General.applyJob(req, (err) => {
+  Controller.General.updateApplication(req, (err) => {
     if (err) {
       res.status(404);
       res.send(err);
