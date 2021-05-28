@@ -8,7 +8,6 @@ const getJobs = require('./getJobs.js');
 const createJob = require('./createJob.js');
 const applyJob = require('./applyJob.js');
 const getBlog = require('./getBlog.js');
-
 const createDocument = require('./createDocument.js');
 const getDocument = require('./getDocument.js');
 const updateApplication = require('./updateApplication');

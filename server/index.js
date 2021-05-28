@@ -257,9 +257,10 @@ app.get('/blog', (req, res) => {
     if (err) {
       res.status(404);
       res.end();
-    } else {
-      res.status(200);
-      res.send(data);
+    }
+    res.status(200).send(data);
+  });
+});
 
 app.post('/documents', upload.single('document'), (req, res) => {
   Controller.General.createDocument(req, (err, data) => {
@@ -267,8 +268,7 @@ app.post('/documents', upload.single('document'), (req, res) => {
       res.status(404);
       res.send(err);
     } else {
-      res.status(201);
-      res.send(data.toString());
+      res.status(201).send(data.toString());
     }
   });
 });
