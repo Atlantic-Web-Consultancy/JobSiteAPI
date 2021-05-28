@@ -1,15 +1,11 @@
 const Model = require('../../model/');
 
 const getJobs = (req, callback) => {
-  // not validating cookies - can search jobs as anonymous user
-  // could validate params here - depends on what we wanna do with incomplete query params
-
-  //
-  // ZIP CODE API???
-  //
-  // zipcodes.push - zipcodes within specified distance?
-
-  Model.General.getJobs(req.query, (err, data) => {
+  var ip = req.headers['x-forwarded-for'] ||
+     req.connection.remoteAddress ||
+     req.socket.remoteAddress ||
+     req.connection.socket.remoteAddress;
+  Model.General.getJobs(req.query, ip, (err, data) => {
     if (err) {
       callback(err);
     } else {
