@@ -23,7 +23,7 @@ getSeekerApplication = (cookie, callback) => {
       return client.query(applicationsQuery);
     })
     .then((applicationsData) => {
-      callback(null, applicationsData);
+      callback(null, applicationsData.rows);
     })
     .catch((err) => {
       callback(err);
