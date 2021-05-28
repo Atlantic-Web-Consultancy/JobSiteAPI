@@ -3,7 +3,6 @@ const app = express();
 const port = 3001;
 const parseCookies = require('../middleware/cookieParser.js');
 const Controller = require('../controllers/');
-
 const client = require('../database/pg.js');
 
 
