@@ -14,7 +14,7 @@ getSeekerApplication = (cookie, callback) => {
       if (isNaN(userId)) {
         throw ('Invalid user_id, something went wrong.');
       }
-      const applicationsQueryString = 'SELECT * FROM applications WHERE applicant_id = $1';
+      const applicationsQueryString = 'SELECT * FROM applications INNER JOIN job_postings job_postings ON applications.job_id = job_postings.id WHERE applicant_id = $1';
       const applicationsQueryValues = [userId];
       const applicationsQuery = {
         text: applicationsQueryString,
