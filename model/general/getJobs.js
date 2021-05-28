@@ -49,7 +49,7 @@ const getJobs = (params, ip, callback) => {
     axios.get(requestLocateURL)
       .then((location) => {
         const zip = location.data.zip;
-        const zipRequestURL = `https://www.zipcodeapi.com/rest/DemoOnly00Ohu1ugJZtit01nhbeqkRCnxBgW31AWWDqeEXtpZM2pPFMxwczr7QLz/radius.json/${zip}/${params.distance}/mile`;
+        const zipRequestURL = `https://www.zipcodeapi.com/rest/DemoOnly00mfx70owGPj9CN10jlfFP0isyzE85dFlnmPUuTx9qYPsZyswXojtfJR/radius.json/${zip}/${params.distance}/mile`;
         return axios.get(zipRequestURL);
       }
       )
