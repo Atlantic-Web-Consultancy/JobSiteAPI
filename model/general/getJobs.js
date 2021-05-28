@@ -76,9 +76,9 @@ const executeQuery = (paramStrings, queryValues, callback) => {
   allParams = paramStrings.join(' and ');
   var queryString = '';
   if (allParams === '') {
-    queryString = 'SELECT * FROM job_postings ORDER BY date_posted DESC';
+    queryString = 'SELECT * FROM job_postings INNER JOIN employers employers ON employer_id = employers.id ORDER BY date_posted DESC';
   } else {
-    queryString = `SELECT * FROM job_postings WHERE ${allParams} ORDER BY date_posted DESC`;
+    queryString = `SELECT * FROM job_postings INNER JOIN employers employers ON employer_id = employers.id WHERE ${allParams} ORDER BY date_posted DESC`;
   }
   client.query({
     text: queryString,
