@@ -10,4 +10,4 @@ const getBlog = (req, callback) => {
   });
 };
 
-module.exports = getNote;
+module.exports = getBlog;

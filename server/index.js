@@ -239,3 +239,15 @@ app.get('/job/:jobId/applicants', (req, res) => {
     }
   });
 });
+
+app.get('/blog', (req, res) => {
+  Controller.General.getBlog(req, (err, data) => {
+    if (err) {
+      res.status(404);
+      res.end();
+    } else {
+      res.status(200);
+      res.send(data);
+    }
+  });
+});

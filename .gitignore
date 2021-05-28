@@ -2,3 +2,4 @@ package-lock.json
 node_modules/
 passwords.js
 database/pg.js
+database/jobsite_test_data

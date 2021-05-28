@@ -7,6 +7,7 @@ const getCalendar = require('./getCalendar.js');
 const getJobs = require('./getJobs.js');
 const createJob = require('./createJob.js');
 const applyJob = require('./applyJob.js');
+const getBlog = require('./getBlog.js');
 
 
 const General = {
@@ -18,7 +19,8 @@ const General = {
   getCalendar,
   getJobs,
   createJob,
-  applyJob
+  applyJob,
+  getBlog,
 };
 
 module.exports = General;

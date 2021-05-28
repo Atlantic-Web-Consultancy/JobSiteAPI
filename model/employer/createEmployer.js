@@ -8,12 +8,12 @@ const createEmployer = (data, callback) => {
   const authValues = [
     data.username,
     hashedPassword,
-    salt
-  ]
+    salt,
+  ];
   const authQuery = {
     text: authQueryString,
-    values: authValues
-  }
+    values: authValues,
+  };
   client.query(authQuery)
     .then((authData) => {
       const employerQueryString = `INSERT INTO employers (id, username, first_name, last_name, email, phone, organization) VALUES ($1, $2, $3, $4, $5, $6, $7)`;
@@ -29,13 +29,13 @@ const createEmployer = (data, callback) => {
       const employerQuery = {
         text: employerQueryString,
         values: employerValues
-      }
+      };
       return client.query(employerQuery);
     })
     .then(() => callback(null))
     .catch((err) => {
       callback(err);
     });
-}
+};
 
 module.exports = createEmployer;
