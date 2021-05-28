@@ -54,7 +54,7 @@ CREATE TABLE applicants (
   zip INTEGER,
   phone TEXT,
   email TEXT,
-  dob INTEGER,
+  dob BIGINT,
   gender TEXT,
   PRIMARY KEY(id)
 );
@@ -88,8 +88,8 @@ CREATE TABLE calendar_events (
   id SERIAL,
   user_id INTEGER,
   event_name TEXT,
-  start_time INTEGER,
-  end_time INTEGER,
+  start_time BIGINT,
+  end_time BIGINT,
   location TEXT,
   PRIMARY KEY(id)
 );
@@ -107,7 +107,7 @@ CREATE TABLE applications (
   applicant_id INTEGER,
   resume INTEGER NULL,
   cover INTEGER NULL,
-  submission_date INTEGER NULL,
+  submission_date BIGINT NULL,
   interest_level TEXT,
   status TEXT,
   PRIMARY KEY (id)
