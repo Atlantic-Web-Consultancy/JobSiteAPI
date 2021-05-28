@@ -105,8 +105,8 @@ CREATE TABLE applications (
   id SERIAL,
   job_id INTEGER,
   applicant_id INTEGER,
-  resume INTEGER,
-  cover INTEGER,
+  resume INTEGER NULL,
+  cover INTEGER NULL,
   submission_date INTEGER NULL,
   interest_level TEXT,
   status TEXT,
@@ -124,6 +124,7 @@ CREATE TABLE documents (
   id SERIAL,
   document_name TEXT,
   document_hash TEXT,
+  text TEXT,
   PRIMARY KEY(id)
 );
 
@@ -158,7 +159,7 @@ CREATE TABLE job_postings (
   experience_level TEXT,
   salary INTEGER,
   type_work TEXT,
-  date_posted INTEGER,
+  date_posted BIGINT,
   location TEXT,
   PRIMARY KEY(id)
 );

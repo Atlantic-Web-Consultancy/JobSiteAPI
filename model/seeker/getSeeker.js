@@ -7,27 +7,27 @@ getSeeker = (cookie, callback) => {
   const sessionQuery = {
     text: sessionQueryString,
     values: sessionQueryValues
-  }
+  };
   client.query(sessionQuery)
-  .then((sessionData) => {
-    const userId = sessionData.rows[0].user_id;
-    if (isNaN(userId)) {
-      throw('Invalid user_id, something went wrong.');
-    }
-    const applicantQueryString = 'SELECT * FROM applicants WHERE id = $1';
-    const applicantQueryValues = [userId];
-    const applicantQuery = {
-      text: applicantQueryString,
-      values: applicantQueryValues
-    }
-    return client.query(applicantQuery)
-  })
-  .then((applicantData) => {
-    callback(null, applicantData.rows[0]);
-  })
-  .catch((err) => {
-    callback(err);
-  })
+    .then((sessionData) => {
+      const userId = sessionData.rows[0].user_id;
+      if (isNaN(userId)) {
+        throw ('Invalid user_id, something went wrong.');
+      }
+      const applicantQueryString = 'SELECT * FROM applicants WHERE id = $1';
+      const applicantQueryValues = [userId];
+      const applicantQuery = {
+        text: applicantQueryString,
+        values: applicantQueryValues
+      };
+      return client.query(applicantQuery);
+    })
+    .then((applicantData) => {
+      callback(null, applicantData.rows[0]);
+    })
+    .catch((err) => {
+      callback(err);
+    });
 };
 
 module.exports = getSeeker;

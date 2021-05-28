@@ -15,8 +15,6 @@ const login = (data, callback) => {
       user_id = authData.rows[0].id;
       const userData = authData.rows[0];
       const hashedPassword = utils.createHash(password, userData.salt);
-      console.log('hash', hashedPassword);
-      console.log('eserdata', userData.pwhash);
       return hashedPassword === userData.pwhash;
     })
     .then((match) => {

@@ -7,27 +7,27 @@ getEmployer = (cookie, callback) => {
   const sessionQuery = {
     text: sessionQueryString,
     values: sessionQueryValues
-  }
+  };
   client.query(sessionQuery)
-  .then((sessionData) => {
-    const userId = sessionData.rows[0].user_id;
-    if (isNaN(userId)) {
-      throw('Invalid user_id, something went wrong.');
-    }
-    const employerQueryString = 'SELECT * FROM employers WHERE id = $1';
-    const employerQueryValues = [userId];
-    const employerQuery = {
-      text: employerQueryString,
-      values: employerQueryValues
-    }
-    return client.query(employerQuery)
-  })
-  .then((employerData) => {
-    callback(null, employerData.rows[0]);
-  })
-  .catch((err) => {
-    callback(err);
-  })
+    .then((sessionData) => {
+      const userId = sessionData.rows[0].user_id;
+      if (isNaN(userId)) {
+        throw ('Invalid user_id, something went wrong.');
+      }
+      const employerQueryString = 'SELECT * FROM employers WHERE id = $1';
+      const employerQueryValues = [userId];
+      const employerQuery = {
+        text: employerQueryString,
+        values: employerQueryValues
+      };
+      return client.query(employerQuery);
+    })
+    .then((employerData) => {
+      callback(null, employerData.rows[0]);
+    })
+    .catch((err) => {
+      callback(err);
+    });
 };
 
 module.exports = getEmployer;

@@ -4,19 +4,19 @@ const utils = require('../../lib/hashUtils.js');
 const createEmployer = (data, callback) => {
   const salt = utils.createRandom32String();
   const hashedPassword = utils.createHash(data.password, salt);
-  const authQueryString = `INSERT INTO auth (username, pwhash, salt, type) VALUES ($1, $2, $3, 'employer') RETURNING id`;
+  const authQueryString = 'INSERT INTO auth (username, pwhash, salt, type) VALUES ($1, $2, $3, \'employer\') RETURNING id';
   const authValues = [
     data.username,
     hashedPassword,
-    salt,
+    salt
   ];
   const authQuery = {
     text: authQueryString,
-    values: authValues,
+    values: authValues
   };
   client.query(authQuery)
     .then((authData) => {
-      const employerQueryString = `INSERT INTO employers (id, username, first_name, last_name, email, phone, organization) VALUES ($1, $2, $3, $4, $5, $6, $7)`;
+      const employerQueryString = 'INSERT INTO employers (id, username, first_name, last_name, email, phone, organization) VALUES ($1, $2, $3, $4, $5, $6, $7)';
       const employerValues = [
         authData.rows[0].id,
         data.username,

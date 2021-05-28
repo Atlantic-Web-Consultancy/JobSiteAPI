@@ -8,27 +8,27 @@ getEmployerPostings = (cookie, callback) => {
   const sessionQuery = {
     text: sessionQueryString,
     values: sessionQueryValues
-  }
+  };
   client.query(sessionQuery)
-  .then((sessionData) => {
-    const userId = sessionData.rows[0].user_id;
-    if (isNaN(userId)) {
-      throw('Invalid user_id, something went wrong.');
-    }
-    const postingsQueryString = 'SELECT * FROM job_postings WHERE employer_id = $1';
-    const postingsQueryValues = [userId];
-    const postingsQuery = {
-      text: postingsQueryString,
-      values: postingsQueryValues
-    }
-    return client.query(postingsQuery)
-  })
-  .then((postingsData) => {
-    callback(null, postingsData.rows);
-  })
-  .catch((err) => {
-    callback(err);
-  })
+    .then((sessionData) => {
+      const userId = sessionData.rows[0].user_id;
+      if (isNaN(userId)) {
+        throw ('Invalid user_id, something went wrong.');
+      }
+      const postingsQueryString = 'SELECT * FROM job_postings WHERE employer_id = $1';
+      const postingsQueryValues = [userId];
+      const postingsQuery = {
+        text: postingsQueryString,
+        values: postingsQueryValues
+      };
+      return client.query(postingsQuery);
+    })
+    .then((postingsData) => {
+      callback(null, postingsData.rows);
+    })
+    .catch((err) => {
+      callback(err);
+    });
 };
 
 module.exports = getEmployerPostings;

@@ -3,10 +3,13 @@ const app = express();
 const port = 3001;
 const parseCookies = require('../middleware/cookieParser.js');
 const Controller = require('../controllers/');
+const multer = require('multer');
+const upload = multer({ dest: 'documents/' });
+
 const client = require('../database/pg.js');
+var cors = require('cors');
+app.use(cors());
 
-
-const dummyData = require('./exampleData.js');
 app.use(parseCookies);
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
@@ -68,7 +71,6 @@ app.get('/logout', (req, res) => {
     }
   });
 });
-
 
 app.post('/notes', (req, res) => {
   Controller.General.createNote(req, (err) => {
@@ -142,7 +144,6 @@ app.patch('/seekers', (req, res) => {
   });
 });
 
-
 app.get('/seekers/applications', (req, res) => {
   Controller.Seeker.getSeekerApplication(req, (err, data) => {
     if (err) {
@@ -207,7 +208,7 @@ app.post('/jobs/create', (req, res) => {
   Controller.General.createJob(req, (err) => {
     if (err) {
       res.status(404);
-      res.end();
+      res.send(err);
     } else {
       res.status(200);
       res.end();
@@ -219,22 +220,34 @@ app.post('/jobs/apply', (req, res) => {
   Controller.General.applyJob(req, (err) => {
     if (err) {
       res.status(404);
-      res.end();
+      res.send(err);
     } else {
-      res.status(200);
+      res.status(201);
+      res.end();
+    }
+  });
+});
+
+app.patch('/jobs/apply', (req, res) => {
+  Controller.General.updateApplication(req, (err) => {
+    if (err) {
+      res.status(404);
+      res.send(err);
+    } else {
+      res.status(201);
       res.end();
     }
   });
 });
 
 app.get('/job/:jobId/applicants', (req, res) => {
-  Controller.Employer.getSeekers(req, (err) => {
+  Controller.Employer.getSeekers(req, (err, data) => {
     if (err) {
       res.status(404);
-      res.end();
+      res.send(err);
     } else {
       res.status(200);
-      res.end();
+      res.send(data);
     }
   });
 });
@@ -247,6 +260,26 @@ app.get('/blog', (req, res) => {
     } else {
       res.status(200);
       res.send(data);
+app.post('/documents', upload.single('document'), (req, res) => {
+  Controller.General.createDocument(req, (err, data) => {
+    if (err) {
+      res.status(404);
+      res.send(err);
+    } else {
+      res.status(201);
+      res.send(data.toString());
+    }
+  });
+});
+
+app.get('/documents', (req, res) => {
+  Controller.General.getDocument(req, (err, data) => {
+    if (err) {
+      res.status(404);
+      res.send(err);
+    } else {
+      res.status(200);
+      res.download(`${__dirname}/../documents/${data.document_hash}`, data.document_name);
     }
   });
 });
