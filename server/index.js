@@ -278,8 +278,9 @@ app.get('/documents', (req, res) => {
     if (err) {
       res.status(404);
       res.send(err);
+    } else {
+      res.status(200);
+      res.download(`${__dirname}/../documents/${data.document_hash}`, data.document_name);
     }
-    res.status(200);
-    res.download(`${__dirname}/../documents/${data.document_hash}`, data.document_name);
   });
 });

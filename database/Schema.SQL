@@ -212,17 +212,17 @@ SELECT setval(pg_get_serial_sequence('notes', 'id'), coalesce(max(id)+1, 1), fal
 SELECT setval(pg_get_serial_sequence('job_postings', 'id'), coalesce(max(id)+1, 1), false) FROM job_postings;
 SELECT setval(pg_get_serial_sequence('blog', 'id'), coalesce(max(id)+1, 1), false) FROM blog;
 
--- ---
--- SEED DATA
--- ---
+-- -- ---
+-- -- SEED DATA
+-- -- ---
 
--- COPY auth FROM 'jobsite_test_data/_applicants.csv' DELIMITER ',' CSV HEADER;
+-- COPY auth FROM 'jobsite_test_data/_authorization.csv' DELIMITER ',' CSV HEADER;
 -- COPY session FROM 'jobsite_test_data/_session.csv' DELIMITER ',' CSV HEADER;
-COPY applicants FROM '/Users/curtiscastro/JobSiteAPI/database/jobsite_test_data/_applicants.csv' DELIMITER ',' CSV HEADER;
-COPY employers FROM '/Users/curtiscastro/JobSiteAPI/database/jobsite_test_data/_employers.csv' DELIMITER ',' CSV HEADER;
-COPY calendar_events FROM '/Users/curtiscastro/JobSiteAPI/database/jobsite_test_data/_calendar_events.csv' DELIMITER ',' CSV HEADER;
-COPY applications FROM '/Users/curtiscastro/JobSiteAPI/database/jobsite_test_data/_applications.csv' DELIMITER ',' CSV HEADER;
-COPY documents FROM '/Users/curtiscastro/JobSiteAPI/database/jobsite_test_data/_documents.csv' DELIMITER ',' CSV HEADER;
-COPY notes FROM '/Users/curtiscastro/JobSiteAPI/database/jobsite_test_data/_notes.csv' DELIMITER ',' CSV HEADER;
-COPY job_postings FROM '/Users/curtiscastro/JobSiteAPI/database/jobsite_test_data/_job_postings.csv' DELIMITER ',' CSV HEADER;
-COPY blog FROM '/Users/curtiscastro/JobSiteAPI/database/jobsite_test_data/_blog.csv' DELIMITER ',' CSV HEADER;
+-- COPY applicants FROM 'jobsite_test_data/_applicants.csv' DELIMITER ',' CSV HEADER;
+-- COPY employers FROM 'jobsite_test_data/_employers.csv' DELIMITER ',' CSV HEADER;
+-- COPY calendar_events FROM 'jobsite_test_data/_calendar_events.csv' DELIMITER ',' CSV HEADER;
+-- COPY applications FROM 'jobsite_test_data/_applications.csv' DELIMITER ',' CSV HEADER;
+-- COPY documents FROM 'jobsite_test_data/_documents.csv' DELIMITER ',' CSV HEADER;
+-- COPY notes FROM 'obsite_test_data/_notes.csv' DELIMITER ',' CSV HEADER;
+-- COPY job_postings FROM 'jobsite_test_data/_job_postings.csv' DELIMITER ',' CSV HEADER;
+-- COPY blog FROM 'jobsite_test_data/_blog.csv' DELIMITER ',' CSV HEADER;

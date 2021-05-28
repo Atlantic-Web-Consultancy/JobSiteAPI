@@ -12,7 +12,6 @@ const createDocument = require('./createDocument.js');
 const getDocument = require('./getDocument.js');
 const updateApplication = require('./updateApplication');
 
-
 const General = {
   login,
   logout,
