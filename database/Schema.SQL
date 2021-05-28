@@ -160,7 +160,7 @@ CREATE TABLE job_postings (
   salary INTEGER,
   type_work TEXT,
   date_posted BIGINT,
-  location INTEGER,
+  location TEXT,
   PRIMARY KEY(id)
 );
 
@@ -180,3 +180,49 @@ CREATE TABLE blog (
   content TEXT,
   PRIMARY KEY (id)
 );
+
+
+-- ---
+-- Indexes
+-- ---
+
+CREATE INDEX CONCURRENTLY auth_id_index ON auth USING HASH (id);
+CREATE INDEX CONCURRENTLY session_id_index ON session USING HASH (id);
+CREATE INDEX CONCURRENTLY applicant_id_index ON applicants USING HASH (id);
+CREATE INDEX CONCURRENTLY employer_id_index ON employers USING HASH (id);
+CREATE INDEX CONCURRENTLY calendar_event_id_index ON calendar_events USING HASH (id);
+CREATE INDEX CONCURRENTLY application_id_index ON applications USING HASH (id);
+CREATE INDEX CONCURRENTLY document_id_index ON documents USING HASH (id);
+CREATE INDEX CONCURRENTLY note_id_index ON notes USING HASH (id);
+CREATE INDEX CONCURRENTLY job_posting_id_index ON job_postings USING HASH (id);
+CREATE INDEX CONCURRENTLY blog_id_index ON blog USING HASH (id);
+
+-- ---
+-- INITIALIZE SERIALIZATION
+-- ---
+
+SELECT setval(pg_get_serial_sequence('auth', 'id'), coalesce(max(id)+1, 1), false) FROM auth;
+SELECT setval(pg_get_serial_sequence('session', 'id'), coalesce(max(id)+1, 1), false) FROM session;
+SELECT setval(pg_get_serial_sequence('applicants', 'id'), coalesce(max(id)+1, 1), false) FROM applicants;
+SELECT setval(pg_get_serial_sequence('employers', 'id'), coalesce(max(id)+1, 1), false) FROM employers;
+SELECT setval(pg_get_serial_sequence('calendar_events', 'id'), coalesce(max(id)+1, 1), false) FROM calendar_events;
+SELECT setval(pg_get_serial_sequence('applications', 'id'), coalesce(max(id)+1, 1), false) FROM applications;
+SELECT setval(pg_get_serial_sequence('documents', 'id'), coalesce(max(id)+1, 1), false) FROM documents;
+SELECT setval(pg_get_serial_sequence('notes', 'id'), coalesce(max(id)+1, 1), false) FROM notes;
+SELECT setval(pg_get_serial_sequence('job_postings', 'id'), coalesce(max(id)+1, 1), false) FROM job_postings;
+SELECT setval(pg_get_serial_sequence('blog', 'id'), coalesce(max(id)+1, 1), false) FROM blog;
+
+-- ---
+-- SEED DATA
+-- ---
+
+-- COPY auth FROM 'jobsite_test_data/_applicants.csv' DELIMITER ',' CSV HEADER;
+-- COPY session FROM 'jobsite_test_data/_session.csv' DELIMITER ',' CSV HEADER;
+COPY applicants FROM '/Users/curtiscastro/JobSiteAPI/database/jobsite_test_data/_applicants.csv' DELIMITER ',' CSV HEADER;
+COPY employers FROM '/Users/curtiscastro/JobSiteAPI/database/jobsite_test_data/_employers.csv' DELIMITER ',' CSV HEADER;
+COPY calendar_events FROM '/Users/curtiscastro/JobSiteAPI/database/jobsite_test_data/_calendar_events.csv' DELIMITER ',' CSV HEADER;
+COPY applications FROM '/Users/curtiscastro/JobSiteAPI/database/jobsite_test_data/_applications.csv' DELIMITER ',' CSV HEADER;
+COPY documents FROM '/Users/curtiscastro/JobSiteAPI/database/jobsite_test_data/_documents.csv' DELIMITER ',' CSV HEADER;
+COPY notes FROM '/Users/curtiscastro/JobSiteAPI/database/jobsite_test_data/_notes.csv' DELIMITER ',' CSV HEADER;
+COPY job_postings FROM '/Users/curtiscastro/JobSiteAPI/database/jobsite_test_data/_job_postings.csv' DELIMITER ',' CSV HEADER;
+COPY blog FROM '/Users/curtiscastro/JobSiteAPI/database/jobsite_test_data/_blog.csv' DELIMITER ',' CSV HEADER;

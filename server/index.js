@@ -252,14 +252,23 @@ app.get('/job/:jobId/applicants', (req, res) => {
   });
 });
 
+app.get('/blog', (req, res) => {
+  Controller.General.getBlog(req, (err, data) => {
+    if (err) {
+      res.status(404);
+      res.end();
+    }
+    res.status(200).send(data);
+  });
+});
+
 app.post('/documents', upload.single('document'), (req, res) => {
   Controller.General.createDocument(req, (err, data) => {
     if (err) {
       res.status(404);
       res.send(err);
     } else {
-      res.status(201);
-      res.send(data.toString());
+      res.status(201).send(data.toString());
     }
   });
 });
@@ -269,9 +278,8 @@ app.get('/documents', (req, res) => {
     if (err) {
       res.status(404);
       res.send(err);
-    } else {
-      res.status(200);
-      res.download(`${__dirname}/../documents/${data.document_hash}`, data.document_name);
     }
+    res.status(200);
+    res.download(`${__dirname}/../documents/${data.document_hash}`, data.document_name);
   });
 });
